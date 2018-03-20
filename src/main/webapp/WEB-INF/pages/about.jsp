@@ -13,8 +13,10 @@
 	content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
+
 </script>
 <!-- //for-mobile-apps -->
 <link href="resources/css/bootstrap.css" rel="stylesheet"
@@ -58,8 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="products-breadcrumb">
 		<div class="container">
 			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a
-					href="./">Home</a><span>|</span></li>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="./">Home</a><span>|</span></li>
 				<li>About Us</li>
 			</ul>
 		</div>
@@ -79,16 +80,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							class="icon-bar"></span>
 					</button>
 				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav nav_1">
-						<c:forEach items="${categories}" var="categ">
-							<li><a href="./all-products?id=${categ.id}">${categ.categoryName}</a></li>
-						</c:forEach>
-
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
+				<!-- Side menu -->
+				<jsp:include page="parts/sidepanel.jsp" />
+				<!-- /.Side menu -->
 			</nav>
 		</div>
 		<div class="w3l_banner_nav_right">
@@ -142,7 +136,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h4>Our goals</h4>
 					<ol>
 						<li>We want to grow up with you</li>
-						<li>We want to become your best partner </li>
+						<li>We want to become your best partner</li>
 						<li>We want every body loves us</li>
 					</ol>
 				</div>

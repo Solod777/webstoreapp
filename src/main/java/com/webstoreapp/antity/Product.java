@@ -6,8 +6,8 @@ public class Product {
     private String pruductName;
     private String productDescription;
     private String supplier;
-    private String categoryId;
-    private Double price;
+    private Integer categoryId;
+    private Integer price;
     private String image;
     Category category;
     
@@ -22,11 +22,11 @@ public class Product {
 		this.image = image;
 	}
 
-	public Double getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -38,11 +38,11 @@ public class Product {
         this.category = category;
     }
 
-    public String getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

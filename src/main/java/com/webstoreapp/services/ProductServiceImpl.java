@@ -37,11 +37,11 @@ public class ProductServiceImpl implements ProductService {
             while (rs.next()) {
                 Product product = new Product();
                 int id = rs.getInt(1);
-                int idProduct = rs.getInt(2);
+                int idCategory = rs.getInt(2);
                 String productName = rs.getString(3);
                 String productDescription = rs.getString(4);
                 String supplier = rs.getString(5);
-                Double price = rs.getDouble(6);
+                Integer price = rs.getInt(6);
                 String image = rs.getString(7);
 
                 product.setId(id);
@@ -70,11 +70,13 @@ public class ProductServiceImpl implements ProductService {
         Connection con = getConnection();
         PreparedStatement pr = null;
         try {
-            pr = con.prepareStatement("insert into products (product_name, product_description, supplier, id_category) values(?, ?, ?, ?)");
-            pr.setString(1, product.getPruductName());
-            pr.setString(2, product.getProductDescription());
-            pr.setString(3, product.getSupplier());
-            pr.setInt(4, product.getCategory().getId());
+            pr = con.prepareStatement("insert into products (id_category, product_name, product_description, supplier, price, image) values(?, ?, ?, ?, ?, ?)");
+            pr.setInt(1, product.getCategoryId());
+            pr.setString(2, product.getPruductName());
+            pr.setString(3, product.getProductDescription());
+            pr.setString(4, product.getSupplier());
+            pr.setInt(5, product.getPrice());
+            pr.setString(6, product.getImage());
             pr.executeUpdate();
             con.close();
         } catch (SQLException e) {
@@ -146,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
                 String productName = rs.getString(3);
                 String productDescription = rs.getString(4);
                 String supplier = rs.getString(5);
-                Double price = rs.getDouble(6);
+                Integer price = rs.getInt(6);
                 String image = rs.getString(7);
 
                 product.setId(id);

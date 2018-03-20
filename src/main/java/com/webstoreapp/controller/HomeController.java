@@ -95,13 +95,23 @@ public class HomeController extends HttpServlet {
 			ArrayList<Category> categories = categoryService.getAll();
 			request.setAttribute("categories", categories);
 			request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
-		}else if(url.equals("/delete")) {
-			String id = request.getParameter("id");
-			categoryService.deleteCategory(Integer.parseInt(id));
+		}else if(url.equals("/delete-category")) {
+			String categoryId = request.getParameter("categoryId");
+			categoryService.deleteCategory(Integer.parseInt(categoryId));
 			ArrayList<Category> categories = categoryService.getAll();
 			request.setAttribute("categories", categories);
-			request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
-		} else if (url.equals("/update")) {
+			request.getRequestDispatcher("/WEB-INF/pages/admin.jsp").forward(request, response);
+		} else if(url.equals("/delete-product-by-id")) {
+			String productId = request.getParameter("productId");
+			productService.deleteProductById(Integer.parseInt(productId));
+			ArrayList<Product> products = productService.getAll();
+			request.setAttribute("products", products);
+			request.getRequestDispatcher("/WEB-INF/pages/admin.jsp").forward(request, response);
+		}
+		
+		
+		
+		else if (url.equals("/update")) {
 			Integer id = Integer.parseInt(request.getParameter("categoryId"));
 			String categoryName = request.getParameter("categoryName");
 			String categoryDescription = request.getParameter("categoryDescription");
@@ -159,10 +169,11 @@ public class HomeController extends HttpServlet {
 			Category category = new Category();
 			category.setCategoryName(categoryName);
 			category.setDescription(categoryDescription);
-			CategoryServiceImpl serviceImpl = new CategoryServiceImpl();
-			serviceImpl.saveCategory(category);
+			CategoryServiceImpl categoryServiceImpl = new CategoryServiceImpl();
+			categoryServiceImpl.saveCategory(category);
 			request.setAttribute("result", "Category " + categoryName + " created successfuly");
-			response.sendRedirect("all-products");
+	//		response.sendRedirect("all-products");
+			response.sendRedirect("admin");
 			return;
 		}else if (url.equals("/login-user")) {
 			String login = request.getParameter("login");
@@ -176,6 +187,29 @@ public class HomeController extends HttpServlet {
 				request.setAttribute("error", "Wrong login or password");
 				request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
 			}
+		}else if(url.equals("/create-product")) {
+			String idCat = request.getParameter("categoryId"); // Т.к. список возвращает name.value, отделяю value
+			String[] idCatArr = idCat.split(".");
+			Integer categoryId = Integer.parseInt(idCatArr[1]);
+			
+//			Integer categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			String productName = request.getParameter("productName");
+			String productDescription = request.getParameter("productDescription");
+			String supplier = request.getParameter("supplier");
+			Integer price = Integer.parseInt(request.getParameter("price"));
+			String productImage = request.getParameter("productImage");
+			Product product = new Product();
+			product.setCategoryId(categoryId);
+			product.setPruductName(productName);
+			product.setProductDescription(productDescription);
+			product.setSupplier(supplier);
+			product.setPrice(price);
+			product.setImage(productImage);
+			ProductServiceImpl productServiceImpl = new ProductServiceImpl();
+			productServiceImpl.saveProduct(product);
+			request.setAttribute("result", "Product " + productName + " created successfuly");
+			response.sendRedirect("admin");
+			return;			
 		}
 	}
 
